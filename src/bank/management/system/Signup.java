@@ -268,7 +268,8 @@ public class Signup extends JFrame implements ActionListener {
 			if (t6.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Fill all the required fields");
 			} else {
-				System.exit(0);
+				new AdditionalDetails(first).setVisible(true);
+				setVisible(false);
 			}
 
 		} catch (Exception e) {
