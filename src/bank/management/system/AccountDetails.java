@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
-public class AccountDetials extends JFrame implements ActionListener {
+public class AccountDetails extends JFrame implements ActionListener {
 
 	JLabel l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12;
 	JRadioButton r1, r2, r3, r4;
@@ -24,7 +24,7 @@ public class AccountDetials extends JFrame implements ActionListener {
 	JCheckBox c1, c2, c3, c4, c5, c6, c7;
 	String formno;
 
-	public AccountDetials(String formno) {
+	public AccountDetails(String formno) {
 		this.formno = formno;
 		setTitle("NEW ACCOUNT APPLICATION FORM - PAGE 3");
 
@@ -265,7 +265,7 @@ public class AccountDetials extends JFrame implements ActionListener {
 				if (atype.equals("")) {
 					JOptionPane.showMessageDialog(null, "Fill all the required fields");
 				} else {
-					System.exit(0);
+					JOptionPane.showMessageDialog(null, "Card Number: " + cardno + "\n Pin:" + pin);
 				}
 
 			} else if (ae.getSource() == b2) {
@@ -279,6 +279,6 @@ public class AccountDetials extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		new AccountDetials("").setVisible(true);
+		new AccountDetails("").setVisible(true);
 	}
 }

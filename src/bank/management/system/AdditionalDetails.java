@@ -240,7 +240,7 @@ public class AdditionalDetails extends JFrame implements ActionListener {
 			if (t2.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Fill all the required fields");
 			} else {
-				new AccountDetials(formno).setVisible(true);
+				new AccountDetails(formno).setVisible(true);
 				setVisible(false);
 			}
 
