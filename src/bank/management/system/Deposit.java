@@ -72,11 +72,11 @@ public class Deposit extends JFrame implements ActionListener {
 					JOptionPane.showMessageDialog(null, "Please enter the Amount to you want to Deposit");
 				} else {
 
-//					new Transactions(pin).setVisible(true);
+					new Transactions(pin).setVisible(true);
 				}
 			} else if (ae.getSource() == b2) {
 				setVisible(false);
-//				new Transactions(pin).setVisible(true);
+				new Transactions(pin).setVisible(true);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
