@@ -5,11 +5,14 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -108,8 +111,22 @@ public class Login extends JFrame implements ActionListener {
 			setVisible(false);
 			new Signup().setVisible(true);
 		} else if (ae.getSource() == signinBtn) {
-			setVisible(false);
-			new Transactions("1234567891012131").setVisible(true);
+			Conn c1 = new Conn();
+			String cardno = tf1.getText();
+			String pin = pf2.getText();
+			String q = "select * from login where cardnumber = '" + cardno + "' and pin = '" + pin + "'";
+			ResultSet rs;
+			try {
+				rs = c1.statement.executeQuery(q);
+				if (rs.next()) {
+					setVisible(false);
+					new Transactions(pin).setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(null, "Incorrect Card Number or PIN");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
