@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.util.Date;
 
 import javax.swing.ImageIcon;
@@ -86,8 +87,17 @@ public class FastCash extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent ae) {
 		try {
 			String amount = ((JButton) ae.getSource()).getText();
-
+			Conn c = new Conn();
+			ResultSet rs = c.statement.executeQuery("select * from bank where pin = '" + pin + "'");
 			int balance = 0;
+
+			while (rs.next()) {
+				if (rs.getString("mode").equals("Deposit")) {
+					balance += Integer.parseInt(rs.getString("amount"));
+				} else {
+					balance -= Integer.parseInt(rs.getString("amount"));
+				}
+			}
 
 			String num = "17";
 			if (ae.getSource() != b7 && balance < Integer.parseInt(amount)) {
@@ -100,6 +110,9 @@ public class FastCash extends JFrame implements ActionListener {
 				new Transactions(pin).setVisible(true);
 			} else {
 				Date date = new Date();
+				c.statement.executeUpdate(
+						"insert into bank values('" + pin + "', '" + date + "', 'Withdrawl', '" + amount + "')");
+				JOptionPane.showMessageDialog(null, "Rs. " + amount + " Debited Successfully");
 
 				setVisible(false);
 				new Transactions(pin).setVisible(true);
