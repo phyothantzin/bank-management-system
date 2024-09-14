@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.util.Date;
 
 import javax.swing.ImageIcon;
@@ -78,6 +79,25 @@ public class Withdrawal extends JFrame implements ActionListener {
 				if (t1.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "Please enter the Amount to you want to Withdraw");
 				} else {
+					Conn c1 = new Conn();
+
+					ResultSet rs = c1.statement.executeQuery("select * from bank where pin = '" + pin + "'");
+					int balance = 0;
+					while (rs.next()) {
+						if (rs.getString("mode").equals("Deposit")) {
+							balance += Integer.parseInt(rs.getString("amount"));
+						} else {
+							balance -= Integer.parseInt(rs.getString("amount"));
+						}
+					}
+					if (balance < Integer.parseInt(amount)) {
+						JOptionPane.showMessageDialog(null, "Insuffient Balance");
+						return;
+					}
+
+					c1.statement.executeUpdate(
+							"insert into bank values('" + pin + "', '" + date + "', 'Withdrawl', '" + amount + "')");
+					JOptionPane.showMessageDialog(null, amount + "Ks Debited Successfully");
 
 					setVisible(false);
 					new Transactions(pin).setVisible(true);
