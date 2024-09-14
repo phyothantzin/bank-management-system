@@ -240,6 +240,12 @@ public class AdditionalDetails extends JFrame implements ActionListener {
 			if (t2.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Fill all the required fields");
 			} else {
+				Conn c1 = new Conn();
+				String q1 = "insert into additionaldetail values('" + formno + "','" + religion + "','" + category
+						+ "','" + income + "','" + education + "','" + occupation + "','" + nrc + "','" + phone + "','"
+						+ scitizen + "','" + eaccount + "')";
+				c1.statement.executeUpdate(q1);
+
 				new AccountDetails(formno).setVisible(true);
 				setVisible(false);
 			}
