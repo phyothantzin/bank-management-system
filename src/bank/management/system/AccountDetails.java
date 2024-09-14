@@ -200,19 +200,19 @@ public class AccountDetails extends JFrame implements ActionListener {
 		c6.setBounds(350, 600, 200, 30);
 		add(c6);
 
-		c7.setBounds(100, 680, 600, 20);
+		c7.setBounds(100, 650, 600, 20);
 		add(c7);
 
-		b1.setBounds(250, 720, 100, 30);
+		b1.setBounds(250, 680, 100, 30);
 		add(b1);
 
-		b2.setBounds(420, 720, 100, 30);
+		b2.setBounds(420, 680, 100, 30);
 		add(b2);
 
 		getContentPane().setBackground(Color.WHITE);
 
 		setSize(850, 850);
-		setLocation(500, 120);
+		setLocation(300, 0);
 		setVisible(true);
 
 		b1.addActionListener(this);
@@ -265,7 +265,16 @@ public class AccountDetails extends JFrame implements ActionListener {
 				if (atype.equals("")) {
 					JOptionPane.showMessageDialog(null, "Fill all the required fields");
 				} else {
+					Conn c1 = new Conn();
+					String q1 = "insert into accountdetail values('" + formno + "','" + atype + "','" + cardno + "','"
+							+ pin + "','" + facility + "')";
+					String q2 = "insert into login values('" + formno + "','" + cardno + "','" + pin + "')";
+					c1.statement.executeUpdate(q1);
+					c1.statement.executeUpdate(q2);
 					JOptionPane.showMessageDialog(null, "Card Number: " + cardno + "\n Pin:" + pin);
+
+					new Deposit(pin).setVisible(true);
+					setVisible(false);
 				}
 
 			} else if (ae.getSource() == b2) {
